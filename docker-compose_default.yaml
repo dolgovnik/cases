@@ -1,0 +1,60 @@
+version: "2.4"
+services:
+  postgres:
+    image: postgres:13.6-alpine 
+    environment:
+      POSTGRES_DB: #set db name
+      POSTGRES_USER: #set db user
+      POSTGRES_PASSWORD: #set db password
+    volumes: #mount volume with init scripts
+      - ./init:/docker-entrypoint-initdb.d
+    networks:
+      - casedb_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U <db user> -d <db name>"]
+      interval: 90s
+      timeout: 5s
+      retries: 5
+      start_period: 120s
+    restart: unless-stopped
+
+  redis:
+    image: redis:6.2.6
+    networks:
+      - casedb_net
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli", "ping"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+    restart: unless-stopped
+
+  cases_logic:
+    build: .
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: #set db name
+      POSTGRES_USER: #set db user
+      POSTGRES_PASSWORD: #set db password
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_DB: 0
+      STATIC_PATH: /app/static/static/
+    ports:
+      - "18085:18085"
+    volumes: #mount ssl config and certificates to nginx
+      - ./nginx_ssl.conf:/etc/nginx/conf.d/nginx_ssl.conf
+      - ./certs:/etc/nginx/certs
+    networks:
+      - casedb_net
+    depends_on: #start when db is healthy
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+networks:
+  casedb_net:
+    driver: bridge

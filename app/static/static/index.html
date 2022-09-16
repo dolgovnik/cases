@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <script type="text/javascript" src="js/frontend.js"></script>
+      <script type="text/javascript" src="js/handsontable.full.min.js"></script>
+      <link rel="stylesheet" href="css/handsontable.full.min.css" />
+      <title>Cases DB</title>
+ </head>
+
+  <body>
+    <div align="right" id="exit">
+      <form id="exit" action="/exit" method="post">
+            <button type="submit" role="button">Exit</button>
+      </form>
+    </div>
+    <div align="left" id="search">
+      <form id="search-form" action="/search" method="post">
+        <ul>
+          <li>
+            <label for="name">Search request:</label>
+            <input type="text" id="name" name="sreq">
+            <button type="submit" role="button">Submit</button>
+          </li>
+        </ul>
+      </form>
+      <div id="result_table"></div>
+    </div>
+  </body>
+</html>

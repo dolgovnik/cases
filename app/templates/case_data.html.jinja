@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>00{{ db_res[0]['support_ticket_number'] }} - {{ db_res[0]['subject'] }} </title>
+      <style>
+        table,
+        th,
+        td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+      </style>
+  </head>
+
+<body>
+  <div align="right" id="exit">
+    <form id="exit" action="/exit" method="post">
+          <button type="submit" role="button">Exit</button>
+    </form>
+  </div>
+
+<table>
+  <tr>
+    <th>SF Case Number</th>
+    <th>Severity</th>
+    <th>Status</th>
+    <th>Outage</th>
+  </tr>
+    <tr>
+     <td>{{ db_res[0]['support_ticket_number'] }}</td>
+     <td>{{ db_res[0]['severity'] }}</td>
+     <td>{{ db_res[0]['status'] }}</td>
+     <td>{{ db_res[0]['assessed_outage'] }}</td>
+    </tr>
+</table>
+<p></p>
+<table>
+  <tr>
+    <th>Product Name</th>
+    <th>Product Release</th>
+    <th>Account Name</th>
+    <th>Operational Customer Name</th>
+  </tr>
+    <tr>
+     <td>{{ db_res[0]['product_name'] }}</td>
+     <td>{{ db_res[0]['product_release'] }}</td>
+     <td>{{ db_res[0]['account_name'] }}</td>
+     <td>{{ db_res[0]['operational_customer_name'] }}</td>
+    </tr>
+</table>
+<p></p>
+<table>
+  <tr>
+    <th>Support Ticket Owner</th>
+    <th>Contact Name</th>
+    <th>Current Workgroup</th>
+  </tr>
+    <tr>
+     <td>{{ db_res[0]['support_ticket_owner'] }}</td>
+     <td>{{ db_res[0]['contact_name'] }}</td>
+     <td>{{ db_res[0]['current_workgroup'] }}</td>
+    </tr>
+</table>
+<p></p>
+<table>
+  <tr>
+    <th>Legacy Case Number</th>
+    <th>Problem</th>
+    <th>R&D Reference</th>
+    <th>Target Release</th>
+  </tr>
+    <tr>
+     <td>{{ db_res[0]['legacy_case_number'] }}</td>
+     <td>{{ db_res[0]['problem'] }}</td>
+     <td>{{ db_res[0]['r_d_reference'] }}</td>
+     <td>{{ db_res[0]['target_release'] }}</td>
+    </tr>
+</table>
+<p><b>Subject:</b><br> {{ db_res[0]['subject'] }}</p>
+<p><b>Description:</b><br>
+{{ db_res[0]['description'] }}</p>
+<p><b>Technical analysis:</b><br>
+{{ db_res[0]['technical_analysis'] }}</p>
+<p><b>Temporary Solution:</b><br>
+{{ db_res[0]['temporary_solution'] }}</p>
+<p><b>Solution Details:</b><br>
+{{ db_res[0]['solution_details'] }}</p>
+<p><b>Recovery Actions:</b><br>
+{{ db_res[0]['recovery_actions'] }}</p>
+<p><b>Summary of Analysis:</b><br>
+{{ db_res[0]['summary_of_analysis'] }}</p>
+<p><b>Root Cause Description:</b><br>
+{{ db_res[0]['root_cause_description'] }}</p>
+</body>
+</html>
